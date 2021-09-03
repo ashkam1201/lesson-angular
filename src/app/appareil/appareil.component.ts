@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {AppareilService} from "../services/appareil.service";
+
 
 @Component({
   selector: 'app-appareil',
@@ -9,8 +11,9 @@ export class AppareilComponent implements OnInit {
 
   @Input() appareilName: string;
   @Input() appareilStatus: string;
+  @Input() indexOfAppareil: number;
 
-  constructor() {
+  constructor(private appareilService: AppareilService) {
     this.appareilName ='';
     this.appareilStatus ='';
   }
@@ -29,5 +32,11 @@ export class AppareilComponent implements OnInit {
       return 'red';
     }
     return '';//TS asks what do you return if it's neither allumé or éteint
+  }
+  onSwitchOn() {
+  this.appareilService.switchOnOne(this.indexOfAppareil);
+  }
+  onSwitchOff() {
+    this.appareilService.switchOfOne(this.indexOfAppareil);
   }
 }
